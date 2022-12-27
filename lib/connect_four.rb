@@ -17,6 +17,32 @@ class Board
     @player = player_w
     @turns = 0
     @played_boxes = Array.new
+    @win_hands = [
+      board[2][0],
+      board[0][1..4],
+      board[0][2..5],
+      board[0][3..6],
+      board[1][0..3],
+      board[1][1..4],
+      board[1][2..5],
+      board[1][3..6],
+      board[2][0..3],
+      board[2][1..4],
+      board[2][2..5],
+      board[2][3..6],
+      board[3][0..3],
+      board[3][1..4],
+      board[3][2..5],
+      board[3][3..6],
+      board[4][0..3],
+      board[4][1..4],
+      board[4][2..5],
+      board[4][3..6],
+      board[5][0..3],
+      board[5][1..4],
+      board[5][2..5],
+      board[5][3..6],
+    ]
   end
 
   def print_board
@@ -54,8 +80,33 @@ class Board
     end
   end
 
+  
+  def line_four?
+    case 
+    when self.board.any? {|row| row[0..3].uniq.length == 1}
+      true
+    when self.board.any? {|row| row[1..4].uniq.length == 1}
+      true
+    when self.board.any? {|row| row[2..5].uniq.length == 1}
+      true
+    when self.board.any? {|row| row[3..6].uniq.length == 1}
+      true
+    else
+      false
+    end
+
+  end
+
 end
 
 b = Board.new
-b.played_boxes.push(5)
-b.cell_select
+i = 3
+1.times do
+b.board[0][i] = b.player_w
+i += 1
+end
+b.print_board
+puts b.line_four?
+# b.cell_select
+# p b.board[0][0..3].uniq.length
+# p b.board[0][0..3].length
