@@ -2,7 +2,7 @@ class Board
 
   attr_reader :board, :player_w, :player_b
   attr_writer :turns
-  attr_accessor :played_boxes, :player
+  attr_accessor :played_boxes, :player, :win_hands, :four
   def initialize
     @board = [
       %w[01 02 03 04 05 06 07], 
@@ -17,32 +17,7 @@ class Board
     @player = player_w
     @turns = 0
     @played_boxes = Array.new
-    @win_hands = [
-      board[2][0],
-      board[0][1..4],
-      board[0][2..5],
-      board[0][3..6],
-      board[1][0..3],
-      board[1][1..4],
-      board[1][2..5],
-      board[1][3..6],
-      board[2][0..3],
-      board[2][1..4],
-      board[2][2..5],
-      board[2][3..6],
-      board[3][0..3],
-      board[3][1..4],
-      board[3][2..5],
-      board[3][3..6],
-      board[4][0..3],
-      board[4][1..4],
-      board[4][2..5],
-      board[4][3..6],
-      board[5][0..3],
-      board[5][1..4],
-      board[5][2..5],
-      board[5][3..6],
-    ]
+    
   end
 
   def print_board
@@ -91,22 +66,60 @@ class Board
       true
     when self.board.any? {|row| row[3..6].uniq.length == 1}
       true
+    when [
+      [board[0][0], board[1][0],board[2][0], board[3][0]],
+      [board[1][0], board[2][0],board[3][0], board[4][0]],
+      [board[2][0], board[3][0],board[4][0], board[5][0]],
+      [board[0][1], board[1][1],board[2][1], board[3][1]],
+      [board[1][1], board[2][1],board[3][1], board[4][1]],
+      [board[2][1], board[3][1],board[4][1], board[5][1]],
+      [board[0][2], board[1][2],board[2][2], board[3][2]],
+      [board[1][2], board[2][2],board[3][2], board[4][2]],
+      [board[2][2], board[3][2],board[4][2], board[5][2]],
+      [board[0][3], board[1][3],board[2][3], board[3][3]],
+      [board[1][3], board[2][3],board[3][3], board[4][3]],
+      [board[2][3], board[3][3],board[4][4], board[5][3]],
+      [board[0][4], board[1][4],board[2][4], board[3][4]],
+      [board[1][4], board[2][4],board[3][4], board[4][4]],
+      [board[2][4], board[3][4],board[4][4], board[5][4]],
+      [board[0][5], board[1][5],board[2][5], board[3][5]],
+      [board[1][5], board[2][5],board[3][5], board[4][5]],
+      [board[2][5], board[3][5],board[4][5], board[5][5]],
+      [board[0][6], board[1][6],board[2][6], board[3][6]],
+      [board[1][6], board[2][6],board[3][6], board[4][6]],
+      [board[2][6], board[3][6],board[4][6], board[5][6]],
+      [board[0][0], board[1][1],board[2][2], board[3][3]],
+      [board[0][1], board[1][2],board[2][3], board[3][4]],
+      [board[0][2], board[1][3],board[2][4], board[3][5]],
+      [board[0][3], board[1][4],board[2][5], board[3][6]],
+      [board[0][3], board[1][2],board[2][1], board[3][0]],
+      [board[0][4], board[1][3],board[2][2], board[3][1]],
+      [board[0][5], board[1][4],board[2][3], board[3][2]],
+      [board[0][6], board[1][5],board[2][4], board[3][3]],
+      [board[1][0], board[2][1],board[3][2], board[4][3]],
+      [board[1][1], board[2][2],board[3][3], board[4][4]],
+      [board[1][2], board[2][3],board[3][4], board[4][5]],
+      [board[1][3], board[2][2],board[3][1], board[4][0]],
+      [board[1][3], board[2][4],board[3][5], board[4][6]],
+      [board[1][4], board[2][3],board[3][2], board[4][1]],
+      [board[1][5], board[2][4],board[3][3], board[4][2]],
+      [board[1][6], board[2][5],board[3][4], board[4][3]],
+      [board[2][0], board[3][1],board[4][2], board[5][3]],
+      [board[2][1], board[3][2],board[4][3], board[5][4]],
+      [board[2][2], board[3][3],board[4][4], board[5][5]],
+      [board[2][3], board[3][4],board[4][5], board[5][6]],
+      [board[2][3], board[3][2],board[4][1], board[5][0]],
+      [board[2][4], board[3][3],board[4][2], board[5][1]],
+      [board[2][5], board[3][4],board[4][3], board[5][2]],
+      [board[2][6], board[3][5],board[4][4], board[5][3]]].any? do |hand|
+        hand.uniq.length == 1
+      end
+      true
     else
       false
     end
-
   end
 
 end
 
 b = Board.new
-i = 3
-1.times do
-b.board[0][i] = b.player_w
-i += 1
-end
-b.print_board
-puts b.line_four?
-# b.cell_select
-# p b.board[0][0..3].uniq.length
-# p b.board[0][0..3].length
