@@ -21,6 +21,14 @@ describe Board do
     end
   end
 
+  describe "#to_played_boxes" do
+    it "push element to played_boxes array" do
+      board = Board.new
+      board.to_played_boxes(5)
+      expect(board.played_boxes.include?(5)).to eql(true)
+    end
+  end
+
   describe "#line_four?"do
     it "returns false if there is not a line of the same tokken" do
       board = Board.new
@@ -37,6 +45,11 @@ describe Board do
     end
   end
 
-  
+  describe "#game_over" do
+    it "returns a end game message" do
+      board = Board.new
+      expect(board.game_over).to eql(puts "Game over!\nYou Won!")
+    end
+  end
 
 end

@@ -1,8 +1,8 @@
 class Board
 
   attr_reader :board, :player_w, :player_b
-  attr_writer :turns
-  attr_accessor :played_boxes, :player, :win_hands, :four
+  attr_accessor :played_boxes, :player, :turns
+  
   def initialize
     @board = [
       %w[01 02 03 04 05 06 07], 
@@ -46,6 +46,14 @@ class Board
     board[3][i-22] = player if i.between?(22, 28)
     board[4][i-29] = player if i.between?(29, 35)
     board[5][i-36] = player if i.between?(36, 42)
+  end
+
+  def to_played_boxes(i)
+    self.played_boxes << i
+  end
+
+  def add_turns
+    self.turns += 1
   end
 
   def switch_player
@@ -120,6 +128,17 @@ class Board
     end
   end
 
+  def game_over
+    puts "Game over!\nYou Won!"
+  end
+
 end
 
-b = Board.new
+# b = Board.new
+# i = 0 
+# 4.times do
+#   b.board[0][i] = player_b
+#   board.to_played_boxes(i)
+#   board.add_turns
+# end
+# board.print_board
